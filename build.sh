@@ -52,6 +52,15 @@ extract() {
   realpath "${ARCHIVE}_extracted"/*
 }
 
+extract_toolchain() {
+  ARCHIVE="$1"
+
+  if [ -d "${ARCHIVE}_extracted" ]; then
+    realpath "${ARCHIVE}_extracted"/*
+  else
+    extract "$ARCHIVE"
+  fi
+}
 
 echo "Downloading ARM toolchain ..."
 ARM_TOOLCHAIN_FILENAME="$(download_and_check "$ARM_TOOLCHAIN_URL" "$ARM_TOOLCHAIN_FILENAME" "$ARM_TOOLCHAIN_SHA256SUM")"
@@ -61,9 +70,9 @@ echo "Downloading ATF source ..."
 ATF_SOURCE_FILENAME="$(download_and_check "$ATF_SOURCE_URL" "$ATF_SOURCE_FILENAME" "$ATF_SOURCE_SHA256SUM")"
 
 echo "Extracting ARM toolchain ..."
-CROSS_COMPILE_ARM="$(extract "$ARM_TOOLCHAIN_FILENAME")"/bin/arm-none-eabi-
+CROSS_COMPILE_ARM="$(extract_toolchain "$ARM_TOOLCHAIN_FILENAME")"/bin/arm-none-eabi-
 echo "Extracting AARCH64 toolchain ..."
-CROSS_COMPILE_AARCH64="$(extract "$AARCH64_TOOLCHAIN_FILENAME")"/bin/aarch64-none-elf-
+CROSS_COMPILE_AARCH64="$(extract_toolchain "$AARCH64_TOOLCHAIN_FILENAME")"/bin/aarch64-none-elf-
 
 rm -rf output_dir
 mkdir output_dir
