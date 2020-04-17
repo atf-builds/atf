@@ -30,9 +30,10 @@ download_and_check() {
   local SHA256SUM="$3"
 
   mkdir -p "download_dir"
-  rm -f "$FILENAME"
-  wget --retry-connrefused --waitretry=1 --read-timeout=20 \
+
+  [ -e "$FILENAME" ] || wget --retry-connrefused --waitretry=1 --read-timeout=20 \
     --timeout=15 -t 5 --quiet -O "$FILENAME" "$URL"
+
   shasum="$(sha256sum "$FILENAME" | cut -d' ' -f1 | tr '[:upper:]' '[:lower:]')"
   if [[ "$shasum" == "$SHA256SUM"  ]]; then
     echo "$FILENAME"
@@ -51,7 +52,6 @@ extract() {
   realpath "${ARCHIVE}_extracted"/*
 }
 
-rm -rf download_dir
 
 echo "Downloading ARM toolchain ..."
 ARM_TOOLCHAIN_FILENAME="$(download_and_check "$ARM_TOOLCHAIN_URL" "$ARM_TOOLCHAIN_FILENAME" "$ARM_TOOLCHAIN_SHA256SUM")"
