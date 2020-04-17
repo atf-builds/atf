@@ -101,8 +101,14 @@ for target in targets/*.sh; do
     $MAKE_FLAGS \
     "$TARGET"
 
-  cp ${ATF_DIR}/build/${PLAT}/release/${TARGET}/${TARGET}.${BINARY_FORMAT} output_dir/${PLAT}_${TARGET}.${BINARY_FORMAT}
-  rm -rf ${ATF_DIR}
+  [ "$BINARY_FORMAT" = "elf" ] && \
+    SRC="${ATF_DIR}/build/${PLAT}/release/${TARGET}/${TARGET}.${BINARY_FORMAT}"
+
+  [ "$BINARY_FORMAT" = "bin" ] && \
+    SRC="${ATF_DIR}/build/${PLAT}/release/${TARGET}.${BINARY_FORMAT}"
+
+  cp "$SRC" "output_dir/${PLAT}_${TARGET}.${BINARY_FORMAT}"
+  rm -rf "${ATF_DIR}"
 done
 
 cat << EOF > build_info.txt
