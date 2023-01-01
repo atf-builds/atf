@@ -92,6 +92,12 @@ for target in targets/*.sh; do
     *) die Invalid arch "$ARCH";;
   esac
 
+  # Apply patches for $PLAT if they exist
+  if [[ -d "targets/${PLAT}-patches" ]]; then
+    echo "Applying patches for platform: $PLAT"
+    cat targets/"${PLAT}"-patches/*.patch | patch -p1 -d "$ATF_DIR"
+  fi
+
   make -C "$ATF_DIR" \
     CROSS_COMPILE="$CROSS_COMPILE" \
     M0_CROSS_COMPILE="$CROSS_COMPILE_ARM" \
