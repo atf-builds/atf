@@ -9,6 +9,8 @@ Building the ATF manually was tested on Arch Linux and Ubuntu x86_64.
 It requires build-essential, git, wget, tar, bash to be present.   
 It downloads a checksum-pinned version of the required ARM and AARCH64 none-eabi gcc toolchains from [arm.com](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-a/downloads), then loads the (also checksum-pinned) ATF sourcecode from the [official GitHub repository](https://github.com/ARM-software/arm-trusted-firmware)
 
+Note: currently one patch will be applied for rk3399 targets to update the default baud rate from 115200 to 1500000, which is more commonly used on rockchip platforms.
+
 ```bash
 git clone https://github.com/atf-builds/atf
 cd atf
