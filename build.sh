@@ -16,8 +16,8 @@ ATF_SOURCE_VERSION=2.8
 ATF_SOURCE_FILENAME=arm-trusted-firmware-v${ATF_SOURCE_VERSION}.tar.gz
 ATF_SOURCE_URL=https://codeload.github.com/ARM-software/arm-trusted-firmware/tar.gz/v${ATF_SOURCE_VERSION}
 ATF_SOURCE_SHA256SUM=42256fa354f32b09972e72e0570a0f73698785927f93163b1d1308c485fcb4a6
-# Set fixed build timestamp for reproducible builds
-ATF_BUILD_EPOCH=1587398203
+# Set fixed build timestamp for reproducible builds (2023-01-01 00:00)
+ATF_BUILD_EPOCH=1672531200
 
 die() {
   echo "$@" 1>&2
